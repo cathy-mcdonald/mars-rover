@@ -24,6 +24,7 @@ public class Rover {
       case 'M':
         int newXCoord = xCoord;
         int newYCoord = yCoord;
+        
         switch (direction) {
           case NORTH:
             newYCoord++;
@@ -37,9 +38,13 @@ public class Rover {
           case WEST:
             newXCoord--;
         }
-        // TODO test if the new position is valid in the plateau
-        xCoord = newXCoord;
-        yCoord = newYCoord;
+        
+        if (plateau.isNavigable(newXCoord, newYCoord)) {
+          xCoord = newXCoord;
+          yCoord = newYCoord;
+        } else {
+          throw new RoverCommandException("Cannot move");
+        }
         break;
         
       case 'R':

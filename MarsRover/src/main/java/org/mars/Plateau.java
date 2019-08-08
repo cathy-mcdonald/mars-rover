@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Plateau {
   
+  private static char NAVIGABLE_TERRAIN = 'o';
   private ArrayList<String> plateauStringArray;
 
   public Plateau(File plateauFile) {
@@ -35,6 +36,16 @@ public class Plateau {
       outputString.append("\n");
     }
     return outputString.toString();
+  }
+  
+  // Test if a position in the plateau is navigable
+  public boolean isNavigable(int x, int y) {
+    // First check if position is inside plateau
+    if (y < 0 || y >= plateauStringArray.size()) return false;
+    int arrayIndex = plateauStringArray.size() - 1 - y;
+    if (x < 0 || x >= plateauStringArray.get(arrayIndex).length()) return false;
+    
+    return (plateauStringArray.get(arrayIndex).charAt(x) == NAVIGABLE_TERRAIN);
   }
 
 }
