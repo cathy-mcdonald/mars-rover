@@ -47,5 +47,9 @@ public class Plateau {
     
     return (plateauStringArray.get(arrayIndex).charAt(x) == NAVIGABLE_TERRAIN);
   }
+  
+  public int getTopLeftY() {
+    return plateauStringArray.size() -1;
+  }
 
 }

@@ -9,6 +9,7 @@ public class RoverCommandInterpreter {
   
   private static final String PLATEAU_FILE_PATH = "plateau.txt";
   private static Plateau plateau;
+  private static Rover rover;
   private static int commandCount;
   private static int failedCount;
 
@@ -27,12 +28,13 @@ public class RoverCommandInterpreter {
     char dataChar = '\n';
     commandCount = 0;
     failedCount = 0;
-    
+    rover = new Rover(0, plateau.getTopLeftY(), Direction.EAST);
+   
     System.out.println("Mars Rover v1.0 running, plateau configuration is:\n");
     
     while ((data != -1) && (Character.toUpperCase(dataChar) != 'X')) {
       if (dataChar == '\n') {
-        System.out.println(plateau.mapWithRover(0, 5));
+        System.out.println(plateau.mapWithRover(rover.getXCoord(), rover.getYCoord()));
         System.out.println("Waiting for commands.");
         System.out.print(">");
       } else {
@@ -52,7 +54,12 @@ public class RoverCommandInterpreter {
   
   public static void processCommand(char command) {
     commandCount++;
-    //TODO Make the rover do stuff
+    try {
+      rover.processCommand(command, plateau);
+    } catch (RoverCommandException e) {
+      failedCount++;
+      System.err.println(e.toString());
+    }
   }
 
 }
