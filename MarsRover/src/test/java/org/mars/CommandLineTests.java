@@ -108,7 +108,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 5 command(s) / 0 failed." + EOL;
+    String expectedResult = EOL + "Sent 5 command(s) / 0 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -119,6 +119,8 @@ public class CommandLineTests {
     outputCursor = validatePartialOutput(outputString, outputCursor, expectedPlateau2);
     outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
     outputCursor = validatePartialOutput(outputString, outputCursor, expectedPlateau3);
+    outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
+    outputCursor = validatePartialOutput(outputString, outputCursor, expectedPlateau4);
     outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
     outputCursor = validatePartialOutput(outputString, outputCursor, expectedPlateau4);
     outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
@@ -138,7 +140,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 5 command(s) / 0 failed." + EOL;
+    String expectedResult = EOL + "Sent 5 command(s) / 0 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
 
@@ -163,7 +165,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 6 command(s) / 0 failed." + EOL;
+    String expectedResult = EOL + "Sent 6 command(s) / 0 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -187,7 +189,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 2 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 2 command(s) / 1 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -211,7 +213,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "XooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 7 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 7 command(s) / 1 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -235,7 +237,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 3 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 3 command(s) / 1 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -251,15 +253,15 @@ public class CommandLineTests {
   
   @Test
   public void testTooFarEastFailure() {
-    String inputString = "MMMMMRMMMMM\nX";
+    String inputString = "MMMMMRMLMMMMM\nX";
     StringReader input = new StringReader(inputString);
-    String expectedNextPlateau = "XoooooRRRR" + EOL
+    String expectedNextPlateau = "ooooooRRRR" + EOL
         + "ooRooooooX" + EOL
         + "ooooooRRoo" + EOL
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 11 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 13 command(s) / 1 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -283,7 +285,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 4 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 4 command(s) / 1 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
@@ -307,7 +309,7 @@ public class CommandLineTests {
         + "ooRooooooo" + EOL
         + "oooooRoooo" + EOL
         + "oooooRRRoo" + EOL + EOL;
-    String expectedResult = "Sent 12 command(s) / 1 failed." + EOL;
+    String expectedResult = EOL + "Sent 12 command(s) / 3 failed." + EOL;
     
     RoverCommandInterpreter.processInput(input);
     int outputCursor = 0;
