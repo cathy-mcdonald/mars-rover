@@ -18,7 +18,7 @@ public class Plateau {
         plateauStringArray.add(reader.readLine());
       }
     } catch (IOException e) {
-      System.err.format("IOException: %s%n", e);
+      System.err.println(e.toString());
     }
   }
   
