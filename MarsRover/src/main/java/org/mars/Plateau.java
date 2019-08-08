@@ -11,15 +11,20 @@ public class Plateau {
   private static char NAVIGABLE_TERRAIN = 'o';
   private ArrayList<String> plateauStringArray;
 
-  public Plateau(File plateauFile) {
+  public Plateau(File plateauFile) throws IOException, PlateauCreationException {
     plateauStringArray = new ArrayList<String>();
     
-    try (BufferedReader reader = new BufferedReader(new FileReader(plateauFile))) {
-      while (reader.ready()) {
-        plateauStringArray.add(reader.readLine());
-      }
-    } catch (IOException e) {
-      System.err.println(e.toString());
+    BufferedReader reader = new BufferedReader(new FileReader(plateauFile));
+    while (reader.ready()) {
+      plateauStringArray.add(reader.readLine());
+    }
+    
+    // Do basic validation on first character of file
+    if (plateauStringArray.isEmpty()) {
+      throw new PlateauCreationException("Plateau file is empty");
+    } else if (plateauStringArray.get(0).charAt(0) != NAVIGABLE_TERRAIN) {
+      throw new PlateauCreationException("First character of plateau file should be " 
+            + NAVIGABLE_TERRAIN);
     }
   }
   

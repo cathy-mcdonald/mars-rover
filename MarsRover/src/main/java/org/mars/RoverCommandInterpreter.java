@@ -14,15 +14,19 @@ public class RoverCommandInterpreter {
   private static int failedCount;
 
   public static void main(String[] args) {
-    setPlateau(PLATEAU_FILE_PATH);
-    processInput(new InputStreamReader(System.in));
+    try {
+      setPlateau(PLATEAU_FILE_PATH);
+      processInput(new InputStreamReader(System.in));
+    } catch (IOException | PlateauCreationException e) {
+      System.err.println(e.toString());      
+    }
   }
   
-  public static void setPlateau(String fileName) {
+  public static void setPlateau(String fileName) throws IOException, PlateauCreationException {
     plateau = new Plateau(new File(fileName));
   }
   
-  public static void processInput(Reader reader) {
+  public static void processInput(Reader reader) throws IOException {
 
     int data = 0;
     char dataChar = '\n';
@@ -30,21 +34,18 @@ public class RoverCommandInterpreter {
     failedCount = 0;
     rover = new Rover(0, plateau.getTopLeftY(), Direction.EAST);
    
-    System.out.println("Mars Rover v1.0 running, plateau configuration is:\n");
+    System.out.println("Mars Rover v1.0 running, plateau configuration is:");
     
     while ((data != -1) && (Character.toUpperCase(dataChar) != 'X')) {
       if (dataChar == '\n') {
-        System.out.println(plateau.mapWithRover(rover.getXCoord(), rover.getYCoord()));
+        System.out.println("\n" + plateau.mapWithRover(rover.getXCoord(), rover.getYCoord()));
         System.out.println("Waiting for commands.");
         System.out.print(">");
       } else {
         processCommand(dataChar);
       }
-      try {
-        data = reader.read();
-      } catch (IOException e) {
-        System.err.println(e.toString());
-      }
+      
+      data = reader.read();
       dataChar = (char) data;
     }
     
