@@ -7,11 +7,13 @@ import java.io.Reader;
 
 public class RoverCommandInterpreter {
   
+  private static final String PLATEAU_FILE_PATH = "plateau.txt";
   private static Plateau plateau;
+  private static int commandCount;
+  private static int failedCount;
 
   public static void main(String[] args) {
-    setPlateau("plateau.txt");
-    System.out.println("Mars Rover v1.0 running, plateau configuration is:");
+    setPlateau(PLATEAU_FILE_PATH);
     processInput(new InputStreamReader(System.in));
   }
   
@@ -23,6 +25,10 @@ public class RoverCommandInterpreter {
 
     int data = 0;
     char dataChar = '\n';
+    commandCount = 0;
+    failedCount = 0;
+    
+    System.out.println("Mars Rover v1.0 running, plateau configuration is:\n");
     
     while ((data != -1) && (Character.toUpperCase(dataChar) != 'X')) {
       if (dataChar == '\n') {
@@ -35,16 +41,17 @@ public class RoverCommandInterpreter {
       try {
         data = reader.read();
       } catch (IOException e) {
-        e.printStackTrace();
+        System.err.println(e.toString());
       }
       dataChar = (char) data;
     }
- 
-    System.out.println("Mars Rover v1.0 closed.");
     
+    System.out.println("\nSent " + commandCount + " command(s) / " + failedCount + " failed.\n");
+    System.out.println("Mars Rover v1.0 closed.");
   }
   
   public static void processCommand(char command) {
+    commandCount++;
     //TODO Make the rover do stuff
   }
 
