@@ -1,19 +1,28 @@
 package org.mars;
 
+/**
+ * Cardinal compass directions.
+ */
 public enum Direction {
   EAST, 
   SOUTH, 
   WEST, 
   NORTH;
   
-  public Direction left() {
-    if (this == EAST) return NORTH;
-    return values()[ordinal() - 1];
-  }
-  
+  /**
+   * Direction on right/clockwise.
+   * @return direction on right
+   */
   public Direction right() {
-    if (this == NORTH) return EAST;
-    return values()[ordinal() + 1];
+    return values()[(ordinal() + 1) % values().length];
   }
 
+  /**
+   * Direction on left/counterclockwise.
+   * @return direction on left
+   */
+  public Direction left() {
+    return values()[(ordinal() + values().length - 1) % values().length];
+  }
+  
 }
