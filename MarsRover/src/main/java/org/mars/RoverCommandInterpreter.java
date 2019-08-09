@@ -32,7 +32,7 @@ public class RoverCommandInterpreter {
     char dataChar = '\n';
     commandCount = 0;
     failedCount = 0;
-    rover = new Rover(0, plateau.getTopLeftY(), Direction.EAST);
+    rover = new Rover(0, plateau.getTopY(), Direction.EAST);
    
     System.out.println("Mars Rover v1.0 running, plateau configuration is:");
     
