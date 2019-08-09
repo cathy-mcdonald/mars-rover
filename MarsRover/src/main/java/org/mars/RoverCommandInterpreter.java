@@ -55,11 +55,26 @@ public class RoverCommandInterpreter {
   
   public static void processCommand(char command) {
     commandCount++;
-    try {
-      rover.processCommand(command, plateau);
-    } catch (RoverCommandException e) {
-      failedCount++;
-      System.err.println(e.toString());
+    switch (command) {
+      case 'M':
+        try {
+          rover.move(plateau);
+        } catch (RoverCommandException e) {
+          failedCount++;
+          System.err.println(e.toString());
+        }       
+        break;
+        
+      case 'R':
+        rover.turnRight();
+        break;
+        
+      case 'L':
+        rover.turnLeft();
+        break;
+        
+      default:
+        System.err.println("Unknown command");
     }
   }
 

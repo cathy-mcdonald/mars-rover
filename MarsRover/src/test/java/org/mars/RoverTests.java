@@ -20,17 +20,12 @@ public class RoverTests {
   }
 
   @Test
-  public void testDoNothing() {
-    Rover rover = new Rover(0, 2, Direction.EAST);
-    assertEquals(0, rover.getXCoord());
-    assertEquals(2, rover.getYCoord());
-  }
-  
-  @Test
   public void testMoveEast() {
     Rover rover = new Rover(0, 0, Direction.EAST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(0, rover.getXCoord());
+      assertEquals(0, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(1, rover.getXCoord());
       assertEquals(0, rover.getYCoord());
       
@@ -43,7 +38,9 @@ public class RoverTests {
   public void testMoveWest() {
     Rover rover = new Rover(3, 0, Direction.WEST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(3, rover.getXCoord());
+      assertEquals(0, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(2, rover.getXCoord());
       assertEquals(0, rover.getYCoord());
       
@@ -56,7 +53,9 @@ public class RoverTests {
   public void testMoveNorth() {
     Rover rover = new Rover(1, 2, Direction.NORTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(2, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(1, rover.getXCoord());
       assertEquals(3, rover.getYCoord());
       
@@ -69,7 +68,9 @@ public class RoverTests {
   public void testMoveSouth() {
     Rover rover = new Rover(1, 2, Direction.SOUTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(2, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(1, rover.getXCoord());
       assertEquals(1, rover.getYCoord());      
     } catch (RoverCommandException e) {
@@ -81,11 +82,12 @@ public class RoverTests {
   public void testTurnRight() {
     Rover rover = new Rover(1, 2, Direction.EAST);
     try {
-      rover.processCommand('R', plateau);
-      rover.processCommand('M', plateau);
       assertEquals(1, rover.getXCoord());
-      assertEquals(1, rover.getYCoord());
-      
+      assertEquals(2, rover.getYCoord());
+      rover.turnRight();
+      rover.move(plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(1, rover.getYCoord());    
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
     }   
@@ -95,32 +97,24 @@ public class RoverTests {
   public void testTurnLeft() {
     Rover rover = new Rover(1, 2, Direction.EAST);
     try {
-      rover.processCommand('L', plateau);
-      rover.processCommand('M', plateau);
       assertEquals(1, rover.getXCoord());
-      assertEquals(3, rover.getYCoord());
-      
+      assertEquals(2, rover.getYCoord());
+      rover.turnLeft();
+      rover.move(plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(3, rover.getYCoord());     
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
     }   
   }
   
   @Test
-  public void testUnknownCommand() {
-    Rover rover = new Rover(1, 2, Direction.EAST);
-    try {
-      rover.processCommand('F', plateau);
-      fail("Expected RoverCommandException to be thrown");
-    } catch (RoverCommandException e) {
-      assertEquals("Unknown command", e.getMessage());    
-    }
-  }
-
-  @Test
   public void testMoveTooFarNorth() {
     Rover rover = new Rover(1, 5, Direction.NORTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(5, rover.getYCoord());
+      rover.move(plateau);
       fail("Expected RoverCommandException to be thrown");
     } catch (RoverCommandException e) {
       assertEquals("Cannot move", e.getMessage());    
@@ -131,7 +125,9 @@ public class RoverTests {
   public void testMoveTooFarEast() {
     Rover rover = new Rover(9, 3, Direction.EAST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(9, rover.getXCoord());
+      assertEquals(3, rover.getYCoord());
+      rover.move(plateau);
       fail("Expected RoverCommandException to be thrown");
     } catch (RoverCommandException e) {
       assertEquals("Cannot move", e.getMessage());    
@@ -142,7 +138,9 @@ public class RoverTests {
   public void testMoveTooFarSouth() {
     Rover rover = new Rover(1, 0, Direction.SOUTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(0, rover.getYCoord());
+      rover.move(plateau);
       fail("Expected RoverCommandException to be thrown");
     } catch (RoverCommandException e) {
       assertEquals("Cannot move", e.getMessage());    
@@ -153,7 +151,9 @@ public class RoverTests {
   public void testMoveTooFarWest() {
     Rover rover = new Rover(0, 2, Direction.WEST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(0, rover.getXCoord());
+      assertEquals(2, rover.getYCoord());
+      rover.move(plateau);
       fail("Expected RoverCommandException to be thrown");
     } catch (RoverCommandException e) {
       assertEquals("Cannot move", e.getMessage());    
@@ -164,7 +164,9 @@ public class RoverTests {
   public void testMoveIntoRock() {
     Rover rover = new Rover(2, 5, Direction.SOUTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(2, rover.getXCoord());
+      assertEquals(5, rover.getYCoord());
+      rover.move(plateau);
       fail("Expected RoverCommandException to be thrown");
     } catch (RoverCommandException e) {
       assertEquals("Cannot move", e.getMessage());    
@@ -175,7 +177,10 @@ public class RoverTests {
   public void testMoveNotQuiteTooFarNorth() {
     Rover rover = new Rover(1, 4, Direction.NORTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(4, rover.getYCoord());
+      rover.move(plateau);
+      assertEquals(1, rover.getXCoord());
       assertEquals(5, rover.getYCoord());      
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
@@ -186,8 +191,11 @@ public class RoverTests {
   public void testNotQuiteTooFarEast() {
     Rover rover = new Rover(8, 3, Direction.EAST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(8, rover.getXCoord());
+      assertEquals(3, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(9, rover.getXCoord());      
+      assertEquals(3, rover.getYCoord());
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
     }   
@@ -197,7 +205,10 @@ public class RoverTests {
   public void testNotQuiteTooFarSouth() {
     Rover rover = new Rover(1, 1, Direction.SOUTH);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(1, rover.getYCoord());
+      rover.move(plateau);
+      assertEquals(1, rover.getXCoord());
       assertEquals(0, rover.getYCoord());      
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
@@ -208,8 +219,11 @@ public class RoverTests {
   public void testNotQuiteTooFarWest() {
     Rover rover = new Rover(1, 2, Direction.WEST);
     try {
-      rover.processCommand('M', plateau);
+      assertEquals(1, rover.getXCoord());
+      assertEquals(2, rover.getYCoord());
+      rover.move(plateau);
       assertEquals(0, rover.getXCoord());      
+      assertEquals(2, rover.getYCoord());
     } catch (RoverCommandException e) {
       fail("Unexpected RoverCommandException" + e.getMessage());
     }   
