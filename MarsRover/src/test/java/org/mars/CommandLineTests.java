@@ -178,6 +178,36 @@ public class CommandLineTests {
   }
   
   @Test
+  public void testMultipleCommandsLowercase() {
+    String inputString = "mmmrm\nx";
+    StringReader input = new StringReader(inputString);
+    String expectedNextPlateau = EOL + "ooooooRRRR" + EOL
+        + "ooRXoooooo" + EOL
+        + "ooooooRRoo" + EOL
+        + "ooRooooooo" + EOL
+        + "oooooRoooo" + EOL
+        + "oooooRRRoo" + EOL + EOL;
+    String expectedResult = EOL + "Sent 5 command(s) / 0 failed." + EOL;
+    
+    try {
+      RoverCommandInterpreter.processInput(input);
+    } catch (IOException e) {
+      fail("Unexpected IOException " + e.toString());
+    }
+    
+
+    int outputCursor = 0;
+    String outputString = outputBytes.toString();
+    outputCursor = validatePartialOutput(outputString, outputCursor, ROVER_RUNNING);
+    outputCursor = validatePartialOutput(outputString, outputCursor, expectedPlateau);
+    outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
+    outputCursor = validatePartialOutput(outputString, outputCursor, expectedNextPlateau);
+    outputCursor = validatePartialOutput(outputString, outputCursor, WAITING);
+    outputCursor = validatePartialOutput(outputString, outputCursor, expectedResult);
+    outputCursor = validatePartialOutput(outputString, outputCursor, ROVER_CLOSED);
+  }
+  
+  @Test
   public void testLeftTurn() {
     String inputString = "MRMMLM\nX";
     StringReader input = new StringReader(inputString);

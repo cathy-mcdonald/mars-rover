@@ -74,7 +74,7 @@ public class RoverCommandInterpreter {
    */
   public static void processCommand(char command) {
     commandCount++;
-    switch (command) {
+    switch (Character.toUpperCase(command)) {
       case 'M':
         try {
           rover.move(plateau);
