@@ -2,25 +2,9 @@
 
 Command line program which simulates moving a robotic rover around a plateau on the surface of Mars.
 
-## Building
-
-Clone the git repository and in the MarsRover directory run the following command to build
-
-```
-.\gradlew build
-```
-
-## Running the JUnit tests
-
-Unit tests exist for each of the Direction, Plateau and Rover classes as well as some tests of the command line processor.
-
-Gradle can run the entire test suite.
-
-```
-.\gradlew test
-```
-
 ## Running the program
+
+Clone the git repository.
 
 ### Configuration
 
@@ -40,7 +24,9 @@ oooooRRRoo
 
 ### Running
 
-Install the program from build/distributions and run with `MarsRover`.
+The program can be run in the MarsRover directory with:
+
+`./gradlew run --console=plain`
 
 The plateau will be shown with the rover marked with an 'X'.
 
@@ -54,6 +40,16 @@ oooooRRRoo
 ```
 
 North is taken to be at the top of the plain as shown and the rover will start facing East (i.e. to the right).
+
+## Running the JUnit tests
+
+Unit tests exist for each of the Direction, Plateau and Rover classes as well as some tests of the command line processor.
+
+Gradle can run the entire test suite.
+
+```
+.\gradlew test
+```
 
 The commands are:
 
