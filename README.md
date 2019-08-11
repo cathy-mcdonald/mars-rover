@@ -10,7 +10,7 @@ Clone the git repository.
 
 The program requires a file 'plateau.txt' in the working directory containing the plateau high view configuration.
 
-In the file 'o' represents plain which the rover can navigate through and 'R" represents rock.
+In the file 'o' represents plain which the rover can navigate through and 'R' represents rock.
 
 Example file content:
 ```
