@@ -47,9 +47,7 @@ Unit tests exist for each of the Direction, Plateau and Rover classes as well as
 
 Gradle can run the entire test suite.
 
-```
-.\gradlew test
-```
+`.\gradlew test`
 
 The commands are:
 
