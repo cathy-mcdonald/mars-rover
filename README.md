@@ -41,14 +41,6 @@ oooooRRRoo
 
 North is taken to be at the top of the plain as shown and the rover will start facing East (i.e. to the right).
 
-## Running the JUnit tests
-
-Unit tests exist for each of the Direction, Plateau and Rover classes as well as some tests of the command line processor.
-
-Gradle can run the entire test suite.
-
-`.\gradlew test`
-
 The commands are:
 
 'M' - move forward one grid point and maintain the same heading
@@ -58,3 +50,11 @@ The commands are:
 'R' - spin 90 degrees to the right
 
 'X' - exit
+
+## Running the JUnit tests
+
+Unit tests exist for each of the Direction, Plateau and Rover classes as well as some tests of the command line processor.
+
+Gradle can run the entire test suite.
+
+`.\gradlew test`
